@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>CS411 - MiniJava Project</title>
+
+<style type="text/css">
+p, table, li, h1, h2, h3 {
+font-family: verdana,arial,'sans serif';
+}
+p, h1, h2, h3, table, li, hr {
+margin-left: 10pt;
+}
+body {
+}
+p, li {
+font-size: smaller;
+}
+pre {
+margin-left: 30pt;
+}
+</style></head>
+<body>
+<h1>CPSC 411 - Stage 6: Register Allocation</h1>
+<p>In
+this stage of the project we are doing the work described
+in Chapter 11 and 12 of the book. The goal of this stage is to finish the compiler, so that we can produce actually working
+X86 assembly code. To achieve this goal there is one major chunk of
+work remaining to be done: register allocation. Register allocation is
+described in Chapter 11 of the book. There are also some
+smaller odds and ends to be done to tie everything together and get the
+code to run. This corresponds to Chapter 12 of the book.</p><h2>Project Setup</h2><p><span style="font-weight: bold; color: red;">Warning:</span>
+Before installing the new files, it is advisable to make a backup copy of
+your project. Otherwise you run the risk of overwriting any
+changes you have made to some of the files that were provided in phases
+1 and 2.</p><p><span style="font-family: verdana,arial,'sans serif';">If you
+forgot how to import project files into Eclipse, please refer to one of the
+previous readme.html files.</span></p><p>The project contains the same files
+from the phase 5 starter and the following new files:</p>
+<ul><li><span
+  style="font-weight: bold;">src</span></li><ul><li><span
+    style="font-weight:
+    bold;">minijava.analysis</span></li></ul>
+    <ul>
+      <ul><li><span
+      style="font-weight: bold;">RegAlloc.java:</span> The "interface" for
+      register allocation.</li>
+    </ul>
+    <li style="font-weight:
+      bold;">minijava.analysis.implementation:&nbsp;<span style="font-weight:
+      normal;"></span></li>
+      <ul>
+	<li style="font-weight: bold;"><span
+	style="font-weight: normal;"><span style="font-weight:
+	bold;">SimpleRegAlloc.java</span>: A simple register allocator</span></li>
+	<li style="font-weight: bold;"><span
+	style="font-weight: normal;"><span style="font-weight:
+	bold;">SpilColor.java</span>: New extra colors for spilled temps</span></li>
+	<li style="font-weight: bold;"><span
+	style="font-weight: normal;"><span style="font-weight:
+	bold;">SpilledTEMPPat.java</span>: New patterns for munching spilled temps</span></li>
+	<li style="font-weight: bold;"><span
+	style="font-weight: normal;"><span style="font-weight:
+	bold;">SpillingRegAlloc.java</span>: A better register allocator</span></li>
+    </ul>
+    <li style="font-weight:
+      bold;">minijava.driver:&nbsp;<span style="font-weight:
+      normal;"></span></li><ul><li style="font-weight: bold;"><span
+	style="font-weight: normal;"><span style="font-weight:
+	bold;">MJCompiler.java</span>: A "driver" to compile a .java file
+	into a .s (assembly file)</span></li><li style="font-weight:
+	bold;"><span style="font-weight: bold;">MJRunner: </span><span
+	style="font-weight: normal;">A driver to call the gnu assembler and
+	linker to produce an executable file from a .s file and then run
+	it.</span></li></ul></ul><ul><li style="font-weight: bold;"><span
+	  style="font-weight: normal;"><span style="font-weight:
+	  bold;">minijava.util</span>:</span></li><ul><li
+	    style="font-weight: bold;"><span style="font-weight:
+	    normal;"><span style="font-weight:
+	    bold;">RunCommand.java</span>: A utility class to execute a
+	    command in the underlying OS.</span></li></ul><li
+	    style="font-weight: bold;"><span style="font-weight:
+	    normal;"><span style="font-weight:
+	    bold;">minijava.test.analysis</span>:</span></li><ul><li
+	      style="font-weight: bold;"><span style="font-weight:
+	      normal;"><span style="font-weight:
+	      bold;">RegAlloc.java</span>: Test register allocation
+	      stage.</span></li></ul><li style="font-weight: bold;"><span
+	      style="font-weight: normal;"><span style="font-weight:
+	      bold;">minijava.test.running</span>:</span></li><ul><li
+		style="font-weight: bold;"><span style="font-weight:
+		normal;"><span style="font-weight: bold;">TestRunning.java:
+		</span>The final test.</span></li></ul></ul><li
+		style="font-weight: bold;"><span style="font-weight:
+		normal;"><span style="font-weight: bold;">runtime: </span>A
+		Mini runtime environment for MiniJava implemented in
+		C.</span></li></ul><span style="font-weight:
+		normal;"></span><p>Also, I have<span style="font-weight:
+		bold;"> added a few extra tests to the TestTranslate
+		class</span>. 
+As it turns out, we did not seem to have explicit tests for the boolean
+not (!) operator, and some students had solutions with incorrect
+implementations of not. This was hard to figure out however since this
+problem only surfaced when running the larger sample code tests which
+are rather complex to debug.</p><h2>Inheritance</h2><p>The
+implementation of inheritance in MiniJava is optional. We may come back
+to this later if we have time to cover the material from Chapter 14 of
+the textbook. You may attempt to implement inheritance support if you like an extra challenge.</p><ul><ul><span style="font-family: verdana,arial,'sans serif';"></span></ul></ul>
+
+<h2>How to get started</h2><span style="font-family: verdana,arial,'sans serif';"></span><p>
+There is a pretty good chance that X86 assembly code produced by
+your stage 4 code generator is not entirely correct (because we did not
+have a good way of testing the generated code, which contains
+"fictional Temp registers"). You should expect to spend some time
+debugging earlier stages in this final stage of the project. The
+following sequence of steps is recommended to get you&nbsp;debugging
+things as early as possible.</p><h3>Step 0: Reading</h3><p>Read chapters 11
+and 12 of the book as well as the lecture slides on register
+allocation.</p><h3>Step 1: Incorporate our Register Allocator</h3><p>
+Test the allocator that we've provided with TestRegalloc. 
+</p><h3>Step 2: Make it run (and debug)</h3><p>When
+you have this working, you can fill in all the gaps, until you can
+actually assemble, link and run the generated code (i.e. run <span style="font-weight: bold;">TestRunning.java</span>). You will probably
+have to go back and do some debugging of prior stages such as the
+translator, analysis and X86 code generator. 
+
+You should also replace your provisional implementation of <span
+style="font-weight: bold;">procEntryExit1</span> 
+(from Step 1). Your new implementation should save and restore caller
+save registers by moving them into and out of&nbsp;fresh Temps (thus
+relying on the register allocator to spill these Temps into the Frame
+on an as&nbsp;needed basis).</p>
+</p><h2>Handing In</h2>
+<p><span style="font-weight: bold; color: red;">Note: Some changes were made to the handin build.xml for this stage.<span style="color: black;"> </span></span><span style="color: black;">The changes relate to text highlighted in red below!</span></p><p>Only one of the team members should hand in for your team. <span style="font-weight: bold;">Make sure you have filled in the names of each team member in the src/README_stage6.txt file</span>. </p><p>The name of this project stage for the electronic handin is <b>
+project6</b>. Please use the <a href="http://www.cs.ubc.ca/ugrad/facilities/windows/handin.shtml">handin
+web-interface</a>.</p>
+<p>You should handin the entire contents of your project's src
+directory, excluding the test files. <span style="font-weight: bold; color: red;">You should also handin the contents of the "runtime" directory, which contains some C source code for the runtime library.</span>
+This is so that you could also make changes to the runtime library
+should you wish to do so (for example, because you decided to implement
+inheritance support).</p><p>We have provided a <span style="font-weight:
+bold;">build.xml</span> script in the src directory that packages up the
+correct files in a .zip file. <span style="font-weight: bold;">Please use
+this script</span>, it will ensure a uniform layout for all handed in
+materials, which makes it easier for the TA.</p>
+
+</p></body></html>

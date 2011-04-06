@@ -3,10 +3,21 @@
             CS 411 Project handin script.
     </description>
 	
+	<!-- IMORTANT NOTE: This handin script was changed for project 6, to include
+	     the runtime library implementation. 
+	     
+	     I have not ever tested or used this version of the script on earlier
+	     stages of the project.
+	 -->
+	
 	<target name="handin_zip" description="zip up the assignment source code, excluding the tests">
 		<zip destfile="project-handin.zip" filesonly="true">
-			<fileset dir="." id="src_dir">
-				<exclude name="minijava/test/**/*"/>
+			<fileset dir=".." id="src_dir">
+				<include name="src/**/*"/>
+				<exclude name="src/minijava/test/**/*"/>
+			</fileset>
+			<fileset dir=".." id="runtime_dir">
+				<include name="runtime/**/*"/>
 			</fileset>
 		</zip>
 	</target>

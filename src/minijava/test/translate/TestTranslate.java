@@ -141,6 +141,26 @@ public class TestTranslate {
 				"}"
 		);
 	}
+
+	@Test public void and() throws Exception {
+		test( "1\n99\n",
+				"class Main {\n" +
+				"  public static void main(String[] args) {\n" +
+				"      System.out.println(new Foo().do(true,true));\n"+
+				"  }\n" +
+				"}\n" +
+				"class Foo {\n " +
+				"   public int do(boolean a, boolean b) { \n" +
+				"      if (a && b)\n"+
+				"         System.out.println(1);\n"+
+				"      else \n"+
+				"         System.out.println(0);\n"+
+				"      return 99;\n"+
+				"   }\n"+
+				"}"
+		);
+		
+	}
 	
 	@Test public void simpleArrays() throws Exception {
 		test( "99\n",
@@ -285,6 +305,67 @@ public class TestTranslate {
 				"}"
 		);
 	}
+	
+	@Test  public void not() throws Exception {
+		test( "20\n20\n",
+				"class Main {\n" +
+				"  public static void main(String[] args) {\n" +
+				"      { System.out.println(new Foo().max(10,20));\n" +
+				"        System.out.println(new Foo().max(20,10));\n" +
+				"      }\n"+
+				"  }\n" +
+				"}\n" +
+				"class Foo {\n " +
+				"   public int max(int x, int y) { \n" +
+				"      int tmp;\n"+
+				"      if (!(y<x)) tmp = y; else tmp = x;\n"+
+				"      return tmp;\n"+
+				"   }\n"+
+				"}"
+		);
+	}
+	
+	@Test  public void not2() throws Exception {
+		test( "20\n20\n",
+				"class Main {\n" +
+				"  public static void main(String[] args) {\n" +
+				"      { System.out.println(new Foo().max(10,20));\n" +
+				"        System.out.println(new Foo().max(20,10));\n" +
+				"      }\n"+
+				"  }\n" +
+				"}\n" +
+				"class Foo {\n " +
+				"   public int max(int x, int y) { \n" +
+				"      int tmp; boolean flag;\n"+
+				"      flag = y < x;\n"+
+				"      flag = !flag;\n"+
+				"      if (flag) tmp = y; else tmp = x;\n"+
+				"      return tmp;\n"+
+				"   }\n"+
+				"}"
+		);
+	}
+	
+	@Test  public void not3() throws Exception {
+		test( "20\n20\n",
+				"class Main {\n" +
+				"  public static void main(String[] args) {\n" +
+				"      { System.out.println(new Foo().max(10,20));\n" +
+				"        System.out.println(new Foo().max(20,10));\n" +
+				"      }\n"+
+				"  }\n" +
+				"}\n" +
+				"class Foo {\n " +
+				"   public int max(int x, int y) { \n" +
+				"      int tmp; boolean flag;\n"+
+				"      flag = y < x;\n"+
+				"      if (!flag) tmp = y; else tmp = x;\n"+
+				"      return tmp;\n"+
+				"   }\n"+
+				"}"
+		);
+	}
+	
 	@Test public void flag() throws Exception {
 		test( "99\n22\n",
 				"class Main {\n" +

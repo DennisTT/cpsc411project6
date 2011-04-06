@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     3-Jan-08 4:23:53 PM                                                       
+                        
+     Author: Kris De Volder <kdvolder@cs.ubc.ca>                                                                
+
+     CS 411 Project: Corresponds to the Compiler project from 
+     "Modern Compiler Implementation in Java" 2nd Ed.  Andrew W. Appel. 
+     
+     This build script creates various "starter" packages. 
+     
+     Note: to potential reusers of this code for a course project:
+     
+     This build.xml file was written during the course of developing the
+     project over the term. 
+     
+     The build script for each stage was not rechecking after adding more
+     code to the project for later stages.
+     ====================================================================== -->
+<project name="project" default="project5-zip">
+	<description>
+            CS 411 Project
+    </description>
+	
+	<target name="project1-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project1-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="**/analysis/**/*"/>
+				<exclude name="**/translate/**/*"/>
+				<exclude name="**/codegen/**/*"/>
+				<exclude name="**/ir/**/*"/>
+				<exclude name="**/typechecker/**/*"/>
+				<exclude name="runtime/**/*"/>
+				<exclude name="**/running/**/*"/>
+				<exclude name="**/driver/**/*"/>
+				<exclude name="sample_analysis_output/**/*"/>			
+				<exclude name="sample/*.exe"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="**/*.zip"/>
+				<exclude name="*TypeCheck*.log"/>
+				<exclude name="**/*.tmp"/>
+				<exclude name="**/temp.*"/>
+				<exclude name="readme-project-2.html"/>
+				<exclude name="readme-project-3.html"/>
+				<exclude name="readme-project-4.html"/>
+				<exclude name="readme-project-5.html"/>
+				<exclude name="readme-project-6.html"/>
+				<exclude name="**/README_stage_2.txt"/>
+				<exclude name="**/README_stage_3.txt"/>
+				<exclude name="**/README_stage_4.txt"/>
+				<exclude name="**/README_stage_5.txt"/>
+				<exclude name="**/README_stage_6.txt"/>
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="project2-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project2-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="src/**/implementation/**/*"/>
+				<exclude name="**/analysis/**/*"/>
+				<exclude name="**/translate/**/*"/>
+				<exclude name="**/codegen/**/*"/>
+				<exclude name="**/ir/**/*"/>
+				<exclude name="runtime/**/*"/>
+				<exclude name="**/running/**/*"/>
+				<exclude name="**/driver/**/*"/>
+				<exclude name="sample_analysis_output/**/*"/>			
+				<exclude name="sample/*.exe"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="*.zip"/>
+				<exclude name="**/*.tmp"/>
+				<exclude name="**/temp.*"/>
+				<exclude name="readme-project-3.html"/>
+				<exclude name="readme-project-4.html"/>
+				<exclude name="readme-project-5.html"/>
+				<exclude name="readme-project-6.html"/>
+				<exclude name="**/README_stage_3.txt"/>
+				<exclude name="**/README_stage_4.txt"/>
+				<exclude name="**/README_stage_5.txt"/>
+				<exclude name="**/README_stage_6.txt"/>
+			</fileset>
+		</zip>
+	</target>
+	
+	<target name="project3-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project3-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="src/**/implementation/**/*"/>
+				<exclude name="src/**/x86/**/*"/>
+				<exclude name="**/analysis/**/*"/>
+				<exclude name="**/codegen/**/*"/>
+				<exclude name="runtime/**/*"/>
+				<exclude name="**/running/**/*"/>
+				<exclude name="**/driver/**/*"/>
+				<exclude name="sample_analysis_output/**/*"/>			
+				<exclude name="sample/*.exe"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="*.zip"/>
+				<exclude name="**/*.tmp"/>
+				<exclude name="**/temp.*"/>
+				<exclude name="readme-project-4.html"/>
+				<exclude name="readme-project-5.html"/>
+				<exclude name="readme-project-6.html"/>
+				<exclude name="**/README_stage_4.txt"/>
+				<exclude name="**/README_stage_5.txt"/>
+				<exclude name="**/README_stage_6.txt"/>
+			</fileset>
+		</zip>
+	</target>
+	
+	<target name="project4-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project4-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="src/**/implementation/**/*"/>
+				<exclude name="src/**/x86/**/*"/>
+				<exclude name="**/analysis/**/*"/>
+				<exclude name="runtime/**/*"/>
+				<exclude name="**/running/**/*"/>
+				<exclude name="**/driver/**/*"/>
+				<exclude name="sample_analysis_output/**/*"/>			
+				<exclude name="sample/*.exe"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="*.zip"/>
+				<exclude name="**/*.tmp"/>
+				<exclude name="**/temp.*"/>
+				<exclude name="readme-project-5.html"/>
+				<exclude name="readme-project-6.html"/>
+				<exclude name="**/README_stage_5.txt"/>
+				<exclude name="**/README_stage_6.txt"/>
+			</fileset>
+		</zip>
+	</target>
+	
+	<target name="project5-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project5-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="src/**/implementation/**/*"/>
+				<exclude name="src/**/x86/**/*"/>
+				<exclude name="runtime/**/*"/>
+				<exclude name="**/running/**/*"/>
+				<exclude name="**/driver/**/*"/>
+				<exclude name="sample/*.exe"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="*.zip"/>
+				<exclude name="**/*.tmp"/>
+				<exclude name="**/temp.*"/>
+				<exclude name="readme-project-6.html"/>
+				<exclude name="**/README_stage_6.txt"/>
+				<exclude name="**/analysis/*RegAlloc.java"/>
+				<exclude name="**/analysis/**/MultiMap.java"/>
+			</fileset>
+		</zip>
+	</target>
+	
+	<target name="project6-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project6-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="src/**/implementation/**/*"/>
+				<exclude name="src/**/x86/**/*"/>
+				<exclude name="sample/*.exe"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="*.zip"/>
+				<exclude name="**/*.tmp"/>
+				<exclude name="**/temp.*"/>
+			</fileset>
+		</zip>
+	</target>
+	
+	<target name="project6-old-zip" description="zip up the assignment, excluding the solution">
+		<zip destfile="project6-starter.zip" filesonly="true">
+			<fileset dir="." id="project_dir">
+				<exclude name="src/README_stage_1.txt"/>
+				<exclude name="src/README_stage_2.txt"/>
+				<exclude name="src/README_stage_3.txt"/>
+				<exclude name="src/README_stage_4.txt"/>
+				<exclude name="src/README_stage_5.txt"/>
+				<exclude name="src/**/jcc/*.jj"/>
+				<exclude name="src/**/jcc/*.java"/>
+				<exclude name="build.xml"/>
+				<exclude name="*.rub"/>
+				<exclude name="bin/**/*"/>
+				<exclude name="sol/**/*"/>
+				<exclude name="*.zip"/>
+				<exclude name="*.tmp"/>
+				<exclude name="**/temp.*"/>
+				<exclude name="sample/*.s"/>
+				<exclude name="sample/*.o"/>
+				<exclude name="sample/*.exe"/>
+				<exclude name="**/implementation/**/*"/>
+				<exclude name="**/x86/**/*"/>
+				<exclude name="**/analysis/**/MultiMap.java"/>
+			</fileset>
+		</zip>
+	</target>
+	
+</project>
