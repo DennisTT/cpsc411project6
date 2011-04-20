@@ -124,7 +124,7 @@ public class X86Frame extends Frame {
   @Override
   public IRStm procEntryExit1(IRStm body)
   {
-    return IR.SEQ(IR.LABEL(this.getLabel()), body);
+    return body;
   }
   
   @Override
@@ -183,12 +183,22 @@ public class X86Frame extends Frame {
   @Override
   public void entrySequence(IndentingWriter out)
   {
-    // Do nothing
+    out.println("pushl  " + ebp);
+    out.println("movl   " + esp + ", " + ebp);
+    
+    // Allocate space on the stack for arguments
+    int args = this.getFormals().size();
+    if(args > 0)
+    {
+      out.println("subl   $" + args * this.wordSize() + ", " + esp);
+    }
   }
 
   @Override
   public void exitSequence(IndentingWriter out)
   {
-    // Do nothing
+    out.println("#return sink");
+    out.println("leave");
+    out.println("ret");
   }
 }
