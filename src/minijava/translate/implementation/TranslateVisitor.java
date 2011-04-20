@@ -67,8 +67,7 @@ public class TranslateVisitor implements Visitor<TranslateExp>
   @Override
   public TranslateExp visit(MainClass n)
   {
-    List<Boolean> frameParams = List.empty();
-    this.frames.push(this.createNewFrame(Translator.L_MAIN, frameParams));
+    this.frames.push(this.createNewFrame(Translator.L_MAIN, List.list(false)));
     this.currentClass = n.className;
     this.currentMethod = "main";
     
@@ -106,8 +105,7 @@ public class TranslateVisitor implements Visitor<TranslateExp>
   {
     this.currentMethod = n.name;
     
-    // Include implicit argument for "this" in method frame
-    List<Boolean> frameParams = List.list(true);
+    List<Boolean> frameParams = List.empty();
     int numFormals = n.formals.size();
     for(int i = 0; i < numFormals; ++i)
     {
