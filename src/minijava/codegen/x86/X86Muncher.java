@@ -17,7 +17,6 @@ import minijava.ir.temp.Label;
 import minijava.ir.temp.Temp;
 import minijava.ir.tree.CJUMP.RelOp;
 import minijava.ir.tree.CONST;
-import minijava.ir.tree.IR;
 import minijava.ir.tree.IRExp;
 import minijava.ir.tree.IRStm;
 import minijava.util.List;
@@ -365,7 +364,7 @@ public class X86Muncher extends Muncher
       protected Void trigger(Muncher m, Matched c)
       {
         Label ll = c.get(_l_),
-              lm = c.get(_m_);
+              labelM = c.get(_m_);
         String j = null;
         
         // Include instruction for determining jump condition flag
@@ -402,7 +401,7 @@ public class X86Muncher extends Muncher
         }
         
         // Include jump instruction for when the condition is true
-        m.emit(new A_OPER(j + "    `j0", noTemps, noTemps, list(ll, lm)));
+        m.emit(new A_OPER(j + "    `j0", noTemps, noTemps, list(ll, labelM)));
         
         return null;
       }
