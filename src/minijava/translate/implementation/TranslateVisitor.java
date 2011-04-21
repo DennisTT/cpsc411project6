@@ -238,25 +238,10 @@ public class TranslateVisitor implements Visitor<TranslateExp>
     if(m == null) { return null; }
     
     int wordSize  = this.frames.peek().wordSize();
-    Label l1      = Label.gen(),
-          l2      = Label.gen(),
-          l3      = Label.gen(),
-          l4      = Label.gen();
-    IRExp i       = n.index.accept(this).unEx(),
-          r       = IR.TEMP(new Temp());
+    IRExp i       = n.index.accept(this).unEx();
     
-    // Perform index bounds checking before assigning value to array memory
-    // Return IR.FALSE on error
-    return new TranslateNx(IR.SEQ(IR.CJUMP(RelOp.LT, IR.CONST(-1), i, l2, l1),
-                                  IR.LABEL(l1),
-                                  IR.MOVE(r, IR.FALSE),
-                                  IR.JUMP(l4),
-                                  IR.LABEL(l2),
-                                  IR.CJUMP(RelOp.LT, i, IR.MEM(IR.MINUS(m, wordSize)), l3, l1),
-                                  IR.LABEL(l3),
-                                  IR.MOVE(IR.MEM(IR.PLUS(m, IR.MUL(i, wordSize))),
-                                          n.value.accept(this).unEx()),
-                                  IR.LABEL(l4)));
+    return new TranslateNx(IR.MOVE(IR.MEM(IR.PLUS(m, IR.MUL(i, wordSize))),
+                                          n.value.accept(this).unEx()));
   }
 
   @Override
@@ -301,26 +286,11 @@ public class TranslateVisitor implements Visitor<TranslateExp>
   public TranslateExp visit(ArrayLookup n)
   {
     int wordSize  = this.frames.peek().wordSize();
-    Label l1      = Label.gen(),
-          l2      = Label.gen(),
-          l3      = Label.gen(),
-          l4      = Label.gen();
     IRExp p       = n.array.accept(this).unEx(),
           i       = n.index.accept(this).unEx(),
           r       = IR.TEMP(new Temp());
     
-    // Perform index bounds checking before accessing array memory
-    // Return IR.FALSE on error
-    return new TranslateEx(IR.ESEQ(IR.SEQ(IR.CJUMP(RelOp.LT, IR.CONST(-1), i, l2, l1),
-                                          IR.LABEL(l1),
-                                          IR.MOVE(r, IR.FALSE),
-                                          IR.JUMP(l4),
-                                          IR.LABEL(l2),
-                                          IR.CJUMP(RelOp.LT, i, IR.MEM(IR.MINUS(p, wordSize)), l3, l1),
-                                          IR.LABEL(l3),
-                                          IR.MOVE(r, IR.MEM(IR.PLUS(p, IR.MUL(i, wordSize)))),
-                                          IR.LABEL(l4)),
-                                  r));
+    return new TranslateEx(IR.ESEQ(IR.MOVE(r, IR.MEM(IR.PLUS(p, IR.MUL(i, wordSize)))), r));
   }
 
   @Override
