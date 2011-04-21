@@ -29,7 +29,6 @@ public class X86Frame extends Frame {
                       ecx = new Temp("%ecx"),
                       edi = new Temp("%edi"),
                       edx = new Temp("%edx"),
-                      eip = new Temp("%eip"),
                       esi = new Temp("%esi"),
                       esp = new Temp("%esp");
   
@@ -161,7 +160,7 @@ public class X86Frame extends Frame {
   @Override
   public List<Temp> registers()
   {
-    return List.list(eax, ebp, ebx, ecx, edi, edx, eip, esi, esp);
+    return List.list(eax, ebp, ebx, ecx, edi, edx, esi, esp);
   }
 
   /**
