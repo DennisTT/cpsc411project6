@@ -168,7 +168,7 @@ public class X86Frame extends Frame {
    */
   public List<Temp> calleeSaves()
   {
-    return List.list(ebp, esp);
+    return List.list(ebx, esi, edi);
   }
 
   /**
