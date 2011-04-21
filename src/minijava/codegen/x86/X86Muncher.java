@@ -364,7 +364,8 @@ public class X86Muncher extends Muncher
       @Override
       protected Void trigger(Muncher m, Matched c)
       {
-        Label l = c.get(_l_);
+        Label ll = c.get(_l_),
+              lm = c.get(_m_);
         String j = null;
         
         // Include instruction for determining jump condition flag
@@ -401,7 +402,7 @@ public class X86Muncher extends Muncher
         }
         
         // Include jump instruction for when the condition is true
-        m.emit(new A_OPER(j + "    `j0", noTemps, noTemps, list(l)));
+        m.emit(new A_OPER(j + "    `j0", noTemps, noTemps, list(ll, lm)));
         
         return null;
       }

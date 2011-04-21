@@ -1,13 +1,16 @@
 package minijava.analysis.implementation;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 import minijava.analysis.FlowGraph;
 import minijava.analysis.InterferenceGraph;
 import minijava.analysis.InterferenceGraph.Move;
 import minijava.analysis.util.graph.Node;
+import minijava.codegen.assem.A_LABEL;
 import minijava.codegen.assem.A_MOVE;
 import minijava.codegen.assem.Instr;
+import minijava.ir.temp.Label;
 import minijava.ir.temp.Temp;
 import minijava.util.List;
 
@@ -15,21 +18,51 @@ public class AssemFlowGraph extends FlowGraph<Instr>
 {  
   public AssemFlowGraph(List<Instr> body)
   {
-    Node<Instr> n,
-                prevNode = null;
+    HashMap<Label, Instr> labels = new HashMap<Label, Instr>();
     
+    // Create all the nodes in the graph
     Iterator<Instr> itr = body.iterator();
     while(itr.hasNext())
     {
       Instr i = itr.next();
-      n = this.nodeFor(i);
+      this.newNode(i);
       
-      if(prevNode != null)
+      // Save labels for later
+      if(i instanceof A_LABEL)
       {
-        this.addEdge(prevNode, n);
+        labels.put(((A_LABEL)i).getLabel(), i);
+      }
+    }
+    
+    // Iterate through again to add the jump edges
+    itr = body.iterator();
+    Instr previous = null;
+    while(itr.hasNext())
+    {
+      Instr i = itr.next();
+      
+      // If previous jump was not a jump, add direct connection
+      if(previous != null)
+      {
+        this.addEdge(this.nodeFor(previous), this.nodeFor(i));
       }
       
-      prevNode = n;
+      // Handle edges for jumps
+      if(i.jumps() != null)
+      {
+        Iterator<Label> labelItr = i.jumps().iterator();
+        while(labelItr.hasNext())
+        {
+          Label target = labelItr.next();
+          this.addEdge(this.nodeFor(i), this.nodeFor(labels.get(target)));
+        }
+        previous = null;
+      }
+      else
+      {
+        // Not a jump, mark this instruction so that next instruction can add edge.
+        previous = i;
+      }
     }
   }
 
