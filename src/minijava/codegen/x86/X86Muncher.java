@@ -420,19 +420,19 @@ public class X86Muncher extends Muncher
   private static Instr A_ADD(Temp d, Temp s) {
     return new A_OPER("addl    `s0, `d0", 
         list(d),
-        list(s));
+        list(s, d));
   }
   
   private static Instr A_SUB(Temp d, Temp s) {
     return new A_OPER("subl    `s0, `d0", 
         list(d),
-        list(s));
+        list(s, d));
   }
   
   private static Instr A_MUL(Temp d, Temp s) {
     return new A_OPER("imul    `s0, `d0", 
         list(d),
-        list(s));
+        list(s, d));
   }
   
   private static Instr A_CMP(Temp t1, Temp t2)
