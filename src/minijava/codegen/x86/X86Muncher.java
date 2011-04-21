@@ -107,10 +107,10 @@ public class X86Muncher extends Muncher
         
         // Add arguments to frame in reverse order
         int length = args.size();
-        for(int i = 0; i < length; ++i)
+        for(int i = length-1; i >= 0; --i)
         {
           // Munch argument and move to appropriate location
-          m.munch(IR.MOVE(f.getOutArg(i).exp(f.SP()), args.get(i)));
+          m.emit(new A_OPER("pushl `s0", noTemps, list(m.munch(args.get(i)))));
         }
         
         m.emit(A_CALL(name, f));

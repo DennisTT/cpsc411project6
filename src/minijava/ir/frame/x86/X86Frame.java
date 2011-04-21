@@ -185,8 +185,8 @@ public class X86Frame extends Frame {
     out.println("pushl  " + ebp);
     out.println("movl   " + esp + ", " + ebp);
     
-    // Allocate space on the stack for arguments
-    int args = this.getFormals().size();
+    // Allocate space on the stack for locals
+    int args = this.numLocals();
     if(args > 0)
     {
       out.println("subl   $" + args * this.wordSize() + ", " + esp);
@@ -196,7 +196,13 @@ public class X86Frame extends Frame {
   @Override
   public void exitSequence(IndentingWriter out)
   {
-    out.println("#return sink");
+    // Deallocate space on the stack for locals
+    int args = this.numLocals();
+    if(args > 0)
+    {
+      out.println("addl   $" + args * this.wordSize() + ", " + esp);
+    }
+    
     out.println("leave");
     out.println("ret");
   }
