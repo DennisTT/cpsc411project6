@@ -105,7 +105,8 @@ public class TranslateVisitor implements Visitor<TranslateExp>
   {
     this.currentMethod = n.name;
     
-    List<Boolean> frameParams = List.empty();
+    // Include implicit argument for "this" in method frame
+    List<Boolean> frameParams = List.list(true);
     int numFormals = n.formals.size();
     for(int i = 0; i < numFormals; ++i)
     {
